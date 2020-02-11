@@ -226,6 +226,10 @@ const float CENTER_Y_OFFSET_BASE = -0.5f;
         }
 
         case MGLAnnotationViewDragStateDragging:
+            if (self.onDragging != nil) {
+                RCTMGLMapTouchEvent *event = [RCTMGLMapTouchEvent makeAnnotationTapEvent:self];
+                self.onDragging([event toJSON]);
+            }
             break;
 
         case MGLAnnotationViewDragStateEnding:

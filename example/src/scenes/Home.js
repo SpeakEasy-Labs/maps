@@ -81,6 +81,7 @@ class ExampleItem {
 }
 
 const Examples = [
+  new ExampleItem('Show Point Annotation', ShowPointAnnotation),
   new ExampleItem('Show Map', ShowMap),
   new ExampleItem('Set Pitch', SetPitch),
   new ExampleItem('Set Heading', SetHeading),
@@ -105,7 +106,6 @@ const Examples = [
   new ExampleItem('Query Features Bounding Box', QueryWithRect),
   new ExampleItem('Shape Source From Icon', ShapeSourceIcon),
   new ExampleItem('Custom Vector Source', CustomVectorSource),
-  new ExampleItem('Show Point Annotation', ShowPointAnnotation),
   new ExampleItem('Create Offline Region', CreateOfflineRegion),
   new ExampleItem('Animation Along a Line', DriveTheLine),
   new ExampleItem('Image Overlay', ImageOverlay),

@@ -471,9 +471,13 @@ public class RCTMGLMapView extends MapView implements OnMapReadyCallback, Mapbox
             }
 
             @Override
-            // Left empty on purpose
             public void onAnnotationDrag(Symbol symbol) {
-
+                mAnnotationClicked = true;
+                final long selectedMarkerID = symbol.getId();
+                RCTMGLPointAnnotation annotation = getPointAnnotationByMarkerID(selectedMarkerID);
+                if (annotation != null) {
+                    annotation.onDragging();
+                }
             }
 
             @Override
@@ -1069,7 +1073,7 @@ public class RCTMGLMapView extends MapView implements OnMapReadyCallback, Mapbox
         LatLng latLng = new LatLng(position.target.getLatitude(), position.target.getLongitude());
 
         WritableMap properties = new WritableNativeMap();
-        
+
         properties.putDouble("zoomLevel", position.zoom);
         properties.putDouble("heading", position.bearing);
         properties.putDouble("pitch", position.tilt);
@@ -1086,7 +1090,7 @@ public class RCTMGLMapView extends MapView implements OnMapReadyCallback, Mapbox
     public void sendRegionChangeEvent(boolean isAnimated) {
         IEvent event = new MapChangeEvent(this, EventTypes.REGION_DID_CHANGE,
                 makeRegionPayload(new Boolean(isAnimated)));
-        
+
                 mManager.handleEvent(event);
         mCameraChangeTracker.setReason(CameraChangeTracker.EMPTY);
     }

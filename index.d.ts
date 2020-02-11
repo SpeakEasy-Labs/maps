@@ -633,11 +633,15 @@ export interface PointAnnotationProps {
   id: string;
   title?: string;
   snippet?: string;
+  draggable?: boolean;
   selected?: boolean;
   coordinate: GeoJSON.Position;
   anchor?: Point;
   onSelected?: () => void;
   onDeselected?: () => void;
+  onDragStart?: (loc: GeoJSON.Feature) => void;
+  onDragging?: (loc: GeoJSON.Feature) => void;
+  onDragEnd?: (loc: GeoJSON.Feature) => void;
 }
 
 export interface CalloutProps extends Omit<ViewProps, 'style'> {

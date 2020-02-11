@@ -20,6 +20,7 @@ public class PointAnnotationDragEvent extends MapClickEvent {
 
     @Override
     public String getKey() {
-        return getType().equals(EventTypes.ANNOTATION_DRAG_START) ? EventKeys.POINT_ANNOTATION_DRAG_START : EventKeys.POINT_ANNOTATION_DRAG_END;
+        return getType().equals(EventTypes.ANNOTATION_DRAG_START) ? EventKeys.POINT_ANNOTATION_DRAG_START :
+        getType().equals(EventTypes.ANNOTATION_DRAGGING) ? EventKeys.POINT_ANNOTATION_DRAGGING : EventKeys.POINT_ANNOTATION_DRAG_END;
     }
 }
