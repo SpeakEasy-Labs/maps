@@ -208,19 +208,19 @@ public class RCTMGLPointAnnotation extends AbstractMapFeature implements View.On
     public void onDragStart() {
         LatLng latLng = mAnnotation.getLatLng();
         mCoordinate = Point.fromLngLat(latLng.getLongitude(), latLng.getLatitude());
-        mManager.handleEvent(makeDragEvent(EventTypes.ANNOTATION_DRAG_START));
-    }
+            mManager.handleEvent(new PointAnnotationDragEvent(this, latLng, getScreenPosition(), EventTypes.ANNOTATION_DRAG_START));
+}
 
     public void onDragging() {
         LatLng latLng = mAnnotation.getLatLng();
         mCoordinate = Point.fromLngLat(latLng.getLongitude(), latLng.getLatitude());
-        mManager.handleEvent(makeDragEvent(EventTypes.ANNOTATION_DRAGGING));
+        mManager.handleEvent(new PointAnnotationDragEvent(this, latLng, getScreenPosition(), EventTypes.ANNOTATION_DRAGGING));
     }
 
     public void onDragEnd() {
         LatLng latLng = mAnnotation.getLatLng();
         mCoordinate = Point.fromLngLat(latLng.getLongitude(), latLng.getLatitude());
-        mManager.handleEvent(makeDragEvent(EventTypes.ANNOTATION_DRAG_END));
+        mManager.handleEvent(new PointAnnotationDragEvent(this, latLng, getScreenPosition(), EventTypes.ANNOTATION_DRAG_END));
     }
 
     public void makeMarker() {
@@ -307,15 +307,9 @@ public class RCTMGLPointAnnotation extends AbstractMapFeature implements View.On
         return new PointAnnotationClickEvent(this, latLng, screenPos, type);
     }
 
-    private PointAnnotationDragEvent makeDragEvent(String type) {
-        LatLng latLng = GeoJSONUtils.toLatLng(mCoordinate);
-        PointF screenPos = getScreenPosition();
-        return new PointAnnotationDragEvent(this, latLng, screenPos, type);
-    }
-
     private PointF getScreenPosition() {
-        int[] loc = new int[2];
-        getLocationOnScreen(loc);
-        return new PointF((float) loc[0], (float) loc[1]);
+        final float scale = getResources().getDisplayMetrics().density;
+        PointF screenPos = mMap.getProjection().toScreenLocation(mAnnotation.getLatLng());
+        return new PointF(screenPos.x / scale, screenPos.y / scale);
     }
 }

@@ -39,7 +39,17 @@
     RCTMGLMapTouchEvent *event = [[RCTMGLMapTouchEvent alloc] init];
     event.type = RCT_MAPBOX_ANNOTATION_TAP;
     event.coordinate = pointAnnotation.coordinate;
-    event.screenPoint = [pointAnnotation.superview convertPoint:pointAnnotation.frame.origin toView:nil];
+    event.screenPoint = [pointAnnotation.superview convertPoint: CGPointMake(pointAnnotation.frame.origin.x+pointAnnotation.frame.size.width/2, pointAnnotation.frame.origin.y+pointAnnotation.frame.size.height/2) toView:pointAnnotation.map];
+    return event;
+}
+
++ (RCTMGLMapTouchEvent *)makeAnnotationTapEventFromScreenCoords:(RCTMGLPointAnnotation *)pointAnnotation
+{
+    RCTMGLMapTouchEvent *event = [[RCTMGLMapTouchEvent alloc] init];
+    event.type = RCT_MAPBOX_ANNOTATION_TAP;
+    event.screenPoint = [pointAnnotation.superview convertPoint: CGPointMake(pointAnnotation.frame.origin.x+pointAnnotation.frame.size.width/2, pointAnnotation.frame.origin.y+pointAnnotation.frame.size.height/2) toView:pointAnnotation.map];
+    event.coordinate = [pointAnnotation.map convertPoint:event.screenPoint toCoordinateFromView: nil];
+
     return event;
 }
 

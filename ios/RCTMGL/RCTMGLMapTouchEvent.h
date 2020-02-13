@@ -19,5 +19,6 @@
 + (RCTMGLMapTouchEvent*)makeTapEvent:(MGLMapView*)mapView withPoint:(CGPoint)point;
 + (RCTMGLMapTouchEvent*)makeLongPressEvent:(MGLMapView*)mapView withPoint:(CGPoint)point;
 + (RCTMGLMapTouchEvent *)makeAnnotationTapEvent:(RCTMGLPointAnnotation *)pointAnnotation;
++ (RCTMGLMapTouchEvent *)makeAnnotationTapEventFromScreenCoords:(RCTMGLPointAnnotation *)pointAnnotation;
 
 @end

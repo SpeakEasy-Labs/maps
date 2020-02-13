@@ -105,9 +105,9 @@ class ShowPointAnnotation extends React.Component {
         <MapboxGL.PointAnnotation
           key={id}
           draggable={true}
-          onDragStart={x => console.log('onDragStart:', x)}
-          onDragging={x => console.log('onDragging:', x)}
-          onDragEnd={x => console.log('onDragEnd:', x)}
+          onDragStart={x => console.log('onDragStart:', JSON.stringify(x))}
+          onDragging={x => console.log('onDragging:', JSON.stringify(x))}
+          onDragEnd={x => console.log('onDragEnd:', JSON.stringify(x))}
           id={id}
           coordinate={coordinate}
           title={title}>
