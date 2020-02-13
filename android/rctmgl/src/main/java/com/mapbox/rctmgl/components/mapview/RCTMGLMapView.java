@@ -839,13 +839,13 @@ public class RCTMGLMapView extends MapView implements OnMapReadyCallback, Mapbox
     }
 
     public void getPointInView(String callbackID, LatLng mapCoordinate) {
-
         PointF pointInView = mMap.getProjection().toScreenLocation(mapCoordinate);
         WritableMap payload = new WritableNativeMap();
 
         WritableArray array = new WritableNativeArray();
-        array.pushDouble(pointInView.x);
-        array.pushDouble(pointInView.y);
+        final float scale = getResources().getDisplayMetrics().density;
+        array.pushDouble(pointInView.x / scale);
+        array.pushDouble(pointInView.y / scale);
         payload.putArray("pointInView", array);
 
         AndroidCallbackEvent event = new AndroidCallbackEvent(this, callbackID, payload);
